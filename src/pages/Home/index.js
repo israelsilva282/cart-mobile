@@ -44,9 +44,9 @@ export default function Home() {
                 <Text style={styles.title}>Lista de produtos</Text>
 
                 <TouchableOpacity style={styles.cartButton} onPress={() => navigation.navigate('Cart')}>
-                    <View style={styles.dot}>
+                    {<View style={styles.dot}>
                         <Text style={styles.dotText}>{cart?.length}</Text>
-                    </View>
+                    </View>}
                     <Feather name="shopping-cart" size={30} color={'#000'} />
                 </TouchableOpacity>
             </View>
