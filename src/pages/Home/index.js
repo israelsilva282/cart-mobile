@@ -2,30 +2,33 @@ import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
+import { FlatList } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Product from "../../components/Product";
 
 export default function Home() {
-    const [products, setProducts] = useState([{
-        id: 1,
-        name: "Coca-cola",
-        price: 19.90
-    }, {
-        id: 2,
-        name: "Chocolate",
-        price: 6.50
-    }, {
-        id: 3,
-        name: "Queijo 500g",
-        price: 15
-    }, {
-        id: 4,
-        name: "Batata frita",
-        price: 23.90
-    }, {
-        id: 5,
-        name: "Guarana lata",
-        price: 6.00
-    }]);
+    const [products, setProducts] = useState([
+        {
+            id: 1,
+            name: "Coca-cola",
+            price: 19.90
+        }, {
+            id: 2,
+            name: "Chocolate",
+            price: 6.50
+        }, {
+            id: 3,
+            name: "Queijo 500g",
+            price: 15
+        }, {
+            id: 4,
+            name: "Batata frita",
+            price: 23.90
+        }, {
+            id: 5,
+            name: "Guarana lata",
+            price: 6.00
+        }]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -39,6 +42,15 @@ export default function Home() {
                     <Feather name="shopping-cart" size={30} color={'#000'} />
                 </TouchableOpacity>
             </View>
+
+            <FlatList
+                style={styles.list}
+                data={products}
+                keyExtractor={(item) => String(item.id)}
+                renderItem={({ item }) => <Product data={item} />}
+            />
+
+
         </SafeAreaView>
     );
 }
@@ -75,5 +87,8 @@ const styles = StyleSheet.create({
     },
     dotText: {
         fontSize: 12,
+    },
+    list: {
+        flex: 1
     }
 });
