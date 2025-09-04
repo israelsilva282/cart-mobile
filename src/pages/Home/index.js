@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Product from "../../components/Product";
+import { CartContext } from "../../contexts/CartContext";
 
 export default function Home() {
+    const navigation = useNavigation();
+    const { cart } = useContext(CartContext)
     const [products, setProducts] = useState([
         {
             id: 1,
@@ -32,12 +36,12 @@ export default function Home() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.cardContent}>
+            <View style={styles.cartContent}>
                 <Text style={styles.title}>Lista de produtos</Text>
 
-                <TouchableOpacity>
+                <TouchableOpacity style={styles.cartButton} onPress={() => navigation.navigate('Cart')}>
                     <View style={styles.dot}>
-                        <Text style={styles.dotText}>5</Text>
+                        <Text style={styles.dotText}>{cart?.length}</Text>
                     </View>
                     <Feather name="shopping-cart" size={30} color={'#000'} />
                 </TouchableOpacity>
@@ -62,7 +66,7 @@ const styles = StyleSheet.create({
         paddingEnd: 14,
         paddingStart: 14
     },
-    cardContent: {
+    cartContent: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
